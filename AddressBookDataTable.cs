@@ -37,6 +37,27 @@ namespace AddressBookLINQ
             dataTable.Rows.Add("Grishma", "Rao", "hasnabad", "sillod", "Maharashtra", "600341", "97456321011", "grishma@gmail.com");
             return dataTable;
         }
+
+        public void AddContact(AddrssBookModel model)
+        {
+            dataTable.Rows.Add(model.First_Name, model.Last_Name, model.Address, model.City,
+                model.State, model.Zip, model.Phone_Number, model.Email);
+            Console.WriteLine("Contact Added Succesfully...");
+        }
+        public void EditContact(AddrssBookModel model)
+        {
+            var recordData = dataTable.AsEnumerable().Where(data => data.Field<string>("First_Name") == model.First_Name).First();
+            if (recordData != null)
+            {
+                recordData.SetField("Last_Name", model.Last_Name);
+                recordData.SetField("Address", model.Address);
+                recordData.SetField("City", model.City);
+                recordData.SetField("State", model.State);
+                recordData.SetField("Zip", model.Zip);
+                recordData.SetField("Phone_Number", model.Phone_Number);
+                recordData.SetField("Email", model.Email);
+            }
+        }
         public void Display()
         {
             foreach (var table in dataTable.AsEnumerable())
